@@ -14,6 +14,10 @@ const InProgressCourse = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  timeSpent: {
+    type: Number,
+    required: true,
+  },
   lastAccessed: {
     type: Date,
     required: true,

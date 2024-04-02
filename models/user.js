@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
   },
   progressID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Progress",
+    ref: "UserProgress",
   },
   wishlistID: {
     type: mongoose.Schema.Types.ObjectId,

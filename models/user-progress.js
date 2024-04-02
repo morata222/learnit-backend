@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const userProgressSchema = new mongoose.Schema({
   userID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
   points: {
     type: Number,
@@ -11,14 +11,20 @@ const userProgressSchema = new mongoose.Schema({
   },
   rank: {
     type: String,
-    default: 'Beginner',
+    default: "Beginner",
   },
   certificates: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Certificate',
+      ref: "Certificate",
+    },
+  ],
+  coursesInProgress: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "InProgressCourse",
     },
   ],
 });
 
-const UserProgress = mongoose.model('UserProgress', userProgressSchema);
+const UserProgress = mongoose.model("UserProgress", userProgressSchema);

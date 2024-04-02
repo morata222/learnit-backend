@@ -1,15 +1,7 @@
 import mongoose from "mongoose";
 
-
-// 5. **Certificates**
-//     - CertificateID (Primary Key)
-//     - CertificateName
-//     - Description
-//     - CertificatePhotoUrl
-
-
 const certificateSchema = new mongoose.Schema({
-  title : {
+  title: {
     type: String,
     required: true,
   },

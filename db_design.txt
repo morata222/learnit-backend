@@ -127,18 +127,14 @@ Designing a database involves defining tables, their relationships, and the fiel
     - Comment
     - DatePosted
 
-13. **Analytics**
-    - AnalyticsID (Primary Key)
-    - UserID (Foreign Key)
-    - CourseID (Foreign Key)
-    - TimeSpent
-    - LastAccessed
+
 
 14. **Instructors**
     - InstructorID (Primary Key)
     - FullName
     - Bio
     - ContactInfo
+    - courses
 
 15. **AdminPanel**
     - AdminID (Primary Key)
