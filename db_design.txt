@@ -24,18 +24,17 @@ Designing a database involves defining tables, their relationships, and the fiel
     - RecommendationID (Foreign Key)
     - lessons
  
- -**UserCourses**
+ -**InProgressCourses**
     UserCourseID (Primary Key)
     UserID (Foreign Key)
-    CourseID (Foreign Key)
-    Progress (e.g., percentage completed)
-    LastAccessed (to store the last accessed date/time)
+    coursesInProgress 
 
-  3- courseProgress
-    - courseProgressId
-    - UserId
-    - CourseID
-    - quizesfinished    
+ -**courseInProgress**
+    id (Primary Key)
+    courseID (Foreign Key)
+    userID  (Foreign Key)
+    progress
+    lastAccessed
 
     **Sections**
     SectionID (Primary Key)

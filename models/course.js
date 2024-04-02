@@ -1,19 +1,6 @@
-import mongoose from 'mongoose'
-
-// 2. **Courses**
-//     - CourseID (Primary Key)
-//     - UserId (forign key)
-//     - CourseName
-//     - Description
-//     - InstructorID (Foreign Key)
-//     - CategoryID (Foreign Key)
-//     - CertificateID (Foreign Key)
-//     - Rating
-//     - RecommendationID (Foreign Key)
-//     - CourseContent
+import mongoose from "mongoose";
 
 const courseSchema = new mongoose.Schema({
-
   courseName: {
     type: String,
     required: true,
@@ -45,8 +32,14 @@ const courseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Recommendation",
   },
-  courseSections: {
-    type: Array,
+  courseSections: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "CourseSection",
+    },
+  ],
+  numberOfLessons: {
+    type: Number,
     required: true,
   },
 });

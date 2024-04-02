@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const questionSchema = new mongoose.Schema({
   question: {
@@ -14,7 +14,10 @@ const questionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  quizId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Quiz",
+  },
 });
-
 
 const Question = mongoose.model("Question", questionSchema);

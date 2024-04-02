@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
     unique: true,
     trim: true,
   },
+  photoUrl: {
+    type: String,
+    trim: true,
+  },
   dateJoined: {
     type: Date,
     default: Date.now,

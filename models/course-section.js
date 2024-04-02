@@ -6,10 +6,12 @@ const courseSectionSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  lessons: {
-    type: Array,
-    required: true,
-  },
+  lessons:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Lesson",
+    },
+  ]
 });
 
 const CourseSection = mongoose.model("CourseSection", courseSectionSchema);
