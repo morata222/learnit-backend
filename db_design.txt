@@ -4,17 +4,17 @@ Designing a database involves defining tables, their relationships, and the fiel
 
 1. **Users**
     - UserID (Primary Key)
+    - CourseID (forign key)
     - Username
     - Password (hashed)
     - Email
     - DateJoined
-    - LastLogin
     - ProgressID (Foreign Key)
     - WishlistID (Foreign Key)
-    - Role (e.g., student, instructor, admin)
 
 2. **Courses**
     - CourseID (Primary Key)
+    - UserId (forign key)
     - CourseName
     - Description
     - InstructorID (Foreign Key)
@@ -22,15 +22,34 @@ Designing a database involves defining tables, their relationships, and the fiel
     - CertificateID (Foreign Key)
     - Rating
     - RecommendationID (Foreign Key)
-    - CourseContent
+    - lessons
+ 
+ -**UserCourses**
+    UserCourseID (Primary Key)
+    UserID (Foreign Key)
+    CourseID (Foreign Key)
+    Progress (e.g., percentage completed)
+    LastAccessed (to store the last accessed date/time)
 
-3. **Lessons**
-    - LessonID (Primary Key)
-    - CourseID (Foreign Key)
-    - LessonName
-    - Content
-    - Duration
-    - QuizID (Foreign Key)
+  3- courseProgress
+    - courseProgressId
+    - UserId
+    - CourseID
+    - quizesfinished    
+
+    **Sections**
+    SectionID (Primary Key)
+    CourseID (Foreign Key)
+    SectionName
+    SectionDescription
+
+    **Lessons**
+    LessonID (Primary Key)
+    SectionID (Foreign Key)
+    LessonName
+    LessonContent
+    Duration
+    Order (to maintain the order of lessons within a section)
 
 4. **Quizzes**
     - QuizID (Primary Key)
@@ -46,13 +65,15 @@ Designing a database involves defining tables, their relationships, and the fiel
     - CertificateID (Primary Key)
     - CertificateName
     - Description
+    - CertificatePhotoUrl
 
 6. **Progress**
     - ProgressID (Primary Key)
     - UserID (Foreign Key)
-    - CourseID (Foreign Key)
-    - LessonID (Foreign Key)
+    - inProgressCourses
+    - Certificate
     - ProgressStatus (e.g., completed, in-progress)
+
 
 7. **Wishlist**
     - WishlistID (Primary Key)
