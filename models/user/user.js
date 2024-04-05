@@ -33,10 +33,7 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Wishlist",
   },
-  courseID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Course",
-  },
 });
 
-const User = mongoose.model("User", userSchema);
+export default  mongoose.model("User", userSchema);
+

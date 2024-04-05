@@ -35,4 +35,4 @@ const finalProjectSchema = new mongoose.Schema({
   },
 });
 
-const FinalProject = mongoose.model("FinalProject", finalProjectSchema);
+export default mongoose.model("FinalProject", finalProjectSchema);

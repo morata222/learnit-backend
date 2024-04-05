@@ -14,4 +14,4 @@ const courseSectionSchema = new mongoose.Schema({
   ]
 });
 
-const CourseSection = mongoose.model("CourseSection", courseSectionSchema);
+export default mongoose.model("CourseSection", courseSectionSchema);

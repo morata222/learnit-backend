@@ -24,4 +24,4 @@ const InProgressCourse = new mongoose.Schema({
   },
 });
 
-const CourseProgress = mongoose.model("InProgressCourse", InProgressCourse);
+export default mongoose.model("InProgressCourse", InProgressCourse);
