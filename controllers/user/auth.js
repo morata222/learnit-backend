@@ -1,4 +1,4 @@
-import ApiError from "../middleware/errors/customError.js";
+import ApiError from "../../middleware/errors/customError.js";
 export const SignUp = (req, res, next) => {
   
 };
