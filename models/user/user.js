@@ -25,6 +25,15 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  verificationCode: {
+    type: Number,
+    default: null,
+    RegExp: /^[0-9]{6}$/, 
+  },
+  isVerified:{
+    type: Boolean,
+    default: false,
+  },
   progressID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "UserProgress",
