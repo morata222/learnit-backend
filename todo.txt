@@ -1,2 +1,4 @@
-leetcode 
-routes
+models done!
+routes done!
+controllers -> auth done!
+controleers -> course working on

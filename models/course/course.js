@@ -11,10 +11,10 @@ const courseSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  instructorID: {
+  instructorID:{
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "Instructor",
+    ref: "User",
   },
   categoryID: {
     type: mongoose.Schema.Types.ObjectId,
@@ -26,7 +26,7 @@ const courseSchema = new mongoose.Schema({
   },
   rating: {
     type: Number,
-    required: true,
+    default: 0,
   },
   recommendationID: {
     type: mongoose.Schema.Types.ObjectId,

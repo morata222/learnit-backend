@@ -9,10 +9,7 @@ const finalProjectSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Course",
   },
-  instructorID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Instructor",
-  },
+
   projectName: {
     type: String,
     required: true,

@@ -1,11 +1,22 @@
-import express from 'express';
+import express from "express";
+
+import {
+  createNewCourse,
+  getAllCourses,
+  getCourseById,
+  updateCourse,
+  deleteCourse,
+} from "../../controllers/course/course.js";
+import { VerifyToken } from "../../middleware/jwt/verifyToken.js";
+import { checkFields } from "../../middleware/checkFields.js";
 
 const router = express.Router();
 
-router.get('/getAllCourses', (req, res) => {});
-router.get('/:courseId', (req, res) => {});
-router.post('/createNewCourse', (req, res) => {});
-router.patch('/updateCourse', (req, res) => {});
-router.delete('/deleteCourse', (req, res) => {});
+router.post("/createNewCourse", checkFields, VerifyToken, createNewCourse);
+router.get("/getAllCourses", getAllCourses);
+router.get("/:courseId", getCourseById);
+router.put("/:courseId" , checkFields , VerifyToken , updateCourse)
+router.delete("/:courseId" , checkFields , VerifyToken , deleteCourse)
+
 
 export default router;

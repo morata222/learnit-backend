@@ -1,6 +1,7 @@
 // import packages
 import express from "express";
 import bodyParser from "body-parser";
+import cookieParser from 'cookie-parser';
 import cors from "cors";
 import dotenv from "dotenv";
 
@@ -14,6 +15,7 @@ const app = express(); // express app
 dotenv.config(); // environment variables
 app.use(cors()); // cors
 app.use(bodyParser.json()); // parse application/json
+app.use(cookieParser()); // parse cookies
 app.use('/' , Routes); // Using the routes
 app.use(errorHandler); // Using the custom error handling middleware should be the last middleware in the stack
 

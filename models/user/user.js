@@ -34,6 +34,14 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  isInstructor: {
+    type: Boolean,
+    default: false,
+  },
+  lastAccessToken:{
+    type: String,
+    default: null,
+  },
   progressID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "UserProgress",
