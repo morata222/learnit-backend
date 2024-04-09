@@ -6,6 +6,14 @@ const courseSectionSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  courseID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Course",
+  },
+  totalTime: {
+    type: Number,
+    required: true,
+  },
   lessons:[
     {
       type: mongoose.Schema.Types.ObjectId,
