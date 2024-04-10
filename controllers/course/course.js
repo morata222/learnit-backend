@@ -14,7 +14,7 @@ export const createNewCourse = async (req, res, next) => {
 };
 export const getAllCourses = async (req, res, next) => {
   try {
-    const courses = await Course.find();
+    const courses = await Course.find().populate("courseSections");
     res.status(200).json(courses);
   } catch (error) {
     next(error);
@@ -23,10 +23,8 @@ export const getAllCourses = async (req, res, next) => {
 export const getCourseById = async (req, res, next) => {
   const { courseId } = req.params;
   try {
-    const course = await Course.findById(courseId);
+    const course = await Course.findById(courseId).populate("courseSections");
     if(!course) return next(new ApiError("Course not found", 404));
-    const courseSections = await CourseSection.find({courseID: courseId});
-    course.courseSections = courseSections;
     res.status(200).json(course);
   } catch (error) {
     next(error);
