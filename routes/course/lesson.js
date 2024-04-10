@@ -4,16 +4,16 @@ import { checkFields } from "../../middleware/checkFields.js";
 import {
   createNewLesson,
   deleteLesson,
-  getAllLessons,
+  getAllSectionLessons,
   getLessonById,
   updateLesson,
 } from "../../controllers/course/lesson.js";
 const router = express.Router();
 
-router.get("/getSectionLessons", getAllLessons);
-router.get("/:lessonId", getLessonById);
+router.get("/getSectionLessons/:sectionID", getAllSectionLessons);
+router.get("/:lessonID", getLessonById);
 router.post("/createNewLesson", checkFields, VerifyToken, createNewLesson);
-router.put("/updateLesson", checkFields, VerifyToken, updateLesson);
-router.delete("/deleteLesson", VerifyToken, deleteLesson);
+router.put("/:lessonID", checkFields, VerifyToken, updateLesson);
+router.delete("/:lessonID", VerifyToken, deleteLesson);
 
 export default router;
