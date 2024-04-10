@@ -1,59 +1,57 @@
-import Course from "../../models/course/course.js";
-import User from "../../models/user/user.js";
-import ApiError from "../../middleware/errors/customError.js";
-import CourseSection from "../../models/course/course-section.js";
 import Lesson from "../../models/course/lesson.js"
-import courseSection from "../../models/course/course-section.js";
-export const createNewLesson = async (req, res, next) => {
+import Quiz from "../../models/course/quiz.js";
+import ApiError from "../../middleware/errors/customError.js";
+
+
+export const createLessonQuiz = async (req, res, next) => {
    if(!req.isInstructor) return next(new ApiError("You are not authorized to create a lesson", 403));
-  const sectionID = req.body.sectionID;
-  const NewLesson= new Lesson({ ...req.body});
+  const lessonID = req.body.lessonID;
+  const NewQuiz = new Quiz({ ...req.body});
   try {
-    const lesson = await NewLesson.save();
-    const section = await courseSection.findByIdAndUpdate(sectionID , { $push: { lessons: lesson._id } }, { new: true})
-    const populatedSection = await section.populate("lessons")
-    res.status(201).json({message : "new lesson created successfully", section: populatedSection});
+    const quiz = await NewQuiz.save();
+    const lesson = await Lesson.findByIdAndUpdate(lessonID , { $set: { quizID: quiz._id } }, { new: true})
+    res.status(201).json({message : "new quiz created successfully"});
   } catch (error) {
     next(error);
   }
 };
-export const getAllSectionLessons = async (req, res, next) => {
+export const getLessonQuiz = async (req, res, next) => {
   try {
-    const { sectionID } = req.params;
-    const sections = await CourseSection.findById(sectionID).populate("lessons");
-    res.status(200).json(sections);
-  } catch (error) {
-    next(error);
-  }
-};
-export const getLessonById = async (req, res, next) => {
-  const { lessonID } = req.params;
-  try {
-    const lesson = await Lesson.findById(lessonID);
+    const { lessonID } = req.params;
+    const lesson = await Lesson.findById(lessonID).populate("quizID");
     res.status(200).json(lesson);
   } catch (error) {
     next(error);
   }
 };
-export const updateLesson = async (req, res, next) => {
-  if(!req.isInstructor) return next(new ApiError("You are not authorized to update a course", 403));
-  const { lessonID } = req.params;
+export const getQuizById = async (req, res, next) => {
+  const { quizID } = req.params;
   try {
-    const lesson = await Lesson.findByIdAndUpdate(lessonID, req.body, {
+    const quiz = await Quiz.findById(quizID);
+    res.status(200).json(quiz);
+  } catch (error) {
+    next(error);
+  }
+};
+export const updateQuiz = async (req, res, next) => {
+  if(!req.isInstructor) return next(new ApiError("You are not authorized to update a course", 403));
+  const { quizID } = req.params;
+  try {
+    const quiz = await Quiz.findByIdAndUpdate(quizID, req.body, {
       new: true,
     });
-    res.status(200).json(lesson);
+    res.status(200).json(quiz);
   }
   catch (error) {
     next(error);
   }
 };
-export const deleteLesson = async (req, res, next) => {
+export const deleteQuiz = async (req, res, next) => {
   if(!req.isInstructor) return next(new ApiError("You are not authorized to update a course", 403));
-  const { lessonID } = req.params;
+  const { quizID } = req.params;
   try {
-    await Lesson.findByIdAndDelete(lessonID);
-    res.status(200).json({ message: "Lesson deleted successfully" });
+    await Quiz.findByIdAndDelete(quizID);
+    res.status(200).json({ message: "quiz deleted successfully" });
   } catch (error) {
     next(error);
   }

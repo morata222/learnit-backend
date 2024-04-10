@@ -6,16 +6,19 @@ const questionSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  answers: {
+  options: {
     type: Array,
+    trim: true,
     required: true,
   },
   correctAnswer: {
     type: String,
+    trim: true,
     required: true,
   },
-  quizId: {
+  quizID: {
     type: mongoose.Schema.Types.ObjectId,
+    required: true,
     ref: "Quiz",
   },
 });

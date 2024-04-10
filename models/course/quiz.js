@@ -11,10 +11,12 @@ const quizSchema = new mongoose.Schema({
     required: true,
     ref: "Lesson",
   },
-  questions: {
-    type: Array,
-    required: true,
-  },
+  questions: [
+     {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Question",
+     }
+  ]
 });
 
 export default mongoose.model("Quiz", quizSchema);
