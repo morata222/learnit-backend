@@ -15,7 +15,7 @@ const router = express.Router();
 router.get("/getAllSections", getCourseSections);
 router.get("/:sectionId", getCourseSectionById);
 router.post("/createNewSection", checkFields, VerifyToken, createNewSection);
-router.put("/updateSection", checkFields, VerifyToken, updateCourseSection);
-router.delete("/deleteSection", checkFields, VerifyToken, deleteCourseSection);
+router.put("/:sectionId", checkFields, VerifyToken, updateCourseSection);
+router.delete("/:sectionId", checkFields, VerifyToken, deleteCourseSection);
 
 export default router;
