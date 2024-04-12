@@ -16,8 +16,9 @@ const courseSchema = new mongoose.Schema({
     required: true,
     ref: "User",
   },
-  categoryID: {
+  subCategoryID: {
     type: mongoose.Schema.Types.ObjectId,
+    required: true,
     ref: "Category",
   },
   certificateID: {

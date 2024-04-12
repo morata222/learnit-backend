@@ -1,4 +1,5 @@
 import Course from "../../models/course/course.js";
+import SubCategory from "../../models/course/sub-category.js";
 import ApiError from "../../middleware/errors/customError.js";
 
 export const createNewCourse = async (req, res, next) => {
@@ -7,6 +8,7 @@ export const createNewCourse = async (req, res, next) => {
   const NewCourse = new Course({ ...req.body, instructorID: req.userId });
   try {
     const course = await NewCourse.save();
+    const subCategory = await SubCategory.findByIdAndUpdate( req.body.subCategoryID , { $push: { courses: course._id } }, { new: true }); 
     res.status(201).json(course);
   } catch (error) {
     next(error);
