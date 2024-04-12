@@ -15,19 +15,11 @@ export const createLessonQuiz = async (req, res, next) => {
     next(error);
   }
 };
-export const getLessonQuiz = async (req, res, next) => {
-  try {
-    const { lessonID } = req.params;
-    const lesson = await Lesson.findById(lessonID).populate("quizID");
-    res.status(200).json(lesson);
-  } catch (error) {
-    next(error);
-  }
-};
+
 export const getQuizById = async (req, res, next) => {
   const { quizID } = req.params;
   try {
-    const quiz = await Quiz.findById(quizID);
+    const quiz = await Quiz.findById(quizID).populate("questions");
     res.status(200).json(quiz);
   } catch (error) {
     next(error);
