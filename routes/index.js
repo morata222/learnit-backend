@@ -18,6 +18,7 @@ import feedbackRoute from "./user/feedback.js";
 import finalProjectRoute from "./course/final-project.js";
 import postRoute from "./community/post.js";
 import userProgressRoute from "./user/user-progress.js";
+import certificateRoute from "./course/certificate.js";
 
 const router = express.Router();
 
@@ -26,6 +27,7 @@ router.use("/user", userRoute);
 router.use("/category", categoryRoute);
 router.use("/sub-category", subCategoryRoute);
 router.use("/course", courseRoute);
+router.use ("/certificate", certificateRoute);
 router.use("/lesson", lessonRoute);
 router.use("/notification", notificationRoute);
 router.use("/comment", commentRoute);
