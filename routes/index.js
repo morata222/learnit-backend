@@ -19,7 +19,7 @@ import finalProjectRoute from "./course/final-project.js";
 import postRoute from "./community/post.js";
 import userProgressRoute from "./user/user-progress.js";
 import certificateRoute from "./course/certificate.js";
-import submissionRoute from "../models/course/submission.js";
+import submissionRoute from "./course/submission.js";
 
 const router = express.Router();
 
