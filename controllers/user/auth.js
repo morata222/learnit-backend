@@ -2,22 +2,36 @@ import bcrypt from "bcrypt";
 
 import ApiError from "../../middleware/errors/customError.js";
 import User from "../../models/user/user.js";
-import {checkFields} from "../../middleware/checkFields.js";
+import { createNewUserProgress } from "../../controllers/user/user-progress.js";
 import sendEmail from "../../helpers/sendEmail.js";
 
 import { generateJwtToken } from "../../utils/jwt/jwt.js";
 
+export const RequestVerificationCode = (req, res, next) => {
+  const { email } = req.body;
+  const verificationCode = Math.floor(100000 + Math.random() * 900000);
+  sendEmail(email, verificationCode);
+  res.cookie("verificationCode", verificationCode, { httpOnly: true });
+  res.status(200).json({
+    message: "Verification code sent to your email",
+    data: { email },
+  });
+};
 export const VerifyCode = (req, res, next) => {
   const { verificationCode } = req.body;
+  if (req.cookies.verificationCode !== verificationCode.toString()) {
+    return next(new ApiError("Invalid code", 400));
+  }
   User.findOne({ verificationCode })
     .then((user) => {
       if (!user) {
-        return next(new ApiError("Invalid code", 400));
+        return next(new ApiError("User not found", 404));
       }
       user.isVerified = true;
       user
         .save()
-        .then((user) => {
+        .then(async(user) => {
+          await createNewUserProgress(req, res, next , user._id);
           res.status(200).json({
             message: "User verified successfully , please sign in to continue",
             data: { user: user.username, email: user.email },
@@ -35,11 +49,8 @@ export const SignUp = (req, res, next) => {
   const { email, password } = req.body;
   const verificationCode = Math.floor(100000 + Math.random() * 900000);
 
-  if (!checkFields(req.body, next)) {
-    return next(new ApiError("All fields are required", 400));
-  }
   User.findOne({ email })
-    .then((user) => {
+    .then(async (user) => {
       // check if user already exists
       if (user) {
         return next(new ApiError("User already exists", 400));
@@ -49,6 +60,7 @@ export const SignUp = (req, res, next) => {
         if (err) {
           return next(new ApiError(err.message, 500));
         }
+        // create a new userProgress
         const newUser = new User({
           ...req.body,
           password: hashedPassword,
@@ -56,10 +68,14 @@ export const SignUp = (req, res, next) => {
         });
 
         // save the user with hashed password
+
         newUser
           .save()
           .then((user) => {
             sendEmail(email, verificationCode);
+            res.cookie("verificationCode", verificationCode, {
+              httpOnly: true,
+            });
             res.status(201).json({
               message: "email verification code sent to your email",
               data: { user: user.username, email: user.email },
@@ -95,7 +111,7 @@ export const SignIn = async (req, res, next) => {
       _id: user._id,
       isInstructor: user.isInstructor,
       isVerified: user.isVerified,
-    }); 
+    });
 
     user.lastAccessToken = token;
     await user.save();
@@ -109,7 +125,7 @@ export const SignIn = async (req, res, next) => {
   }
 };
 
-export const SignOut = async(req, res, next) => {
+export const SignOut = async (req, res, next) => {
   const { user } = req.user;
   user.lastAccessToken = null;
   await user.save();

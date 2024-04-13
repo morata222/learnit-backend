@@ -22,7 +22,7 @@ const userProgressSchema = new mongoose.Schema({
   coursesInProgress: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "InProgressCourse",
+      ref: "Course",
     },
   ],
 });

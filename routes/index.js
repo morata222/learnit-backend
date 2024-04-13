@@ -27,7 +27,7 @@ router.use("/user", userRoute);
 router.use("/category", categoryRoute);
 router.use("/sub-category", subCategoryRoute);
 router.use("/course", courseRoute);
-router.use ("/certificate", certificateRoute);
+router.use("/certificate", certificateRoute);
 router.use("/lesson", lessonRoute);
 router.use("/notification", notificationRoute);
 router.use("/comment", commentRoute);
@@ -43,6 +43,3 @@ router.use("/user-progress", userProgressRoute);
 router.use("/submission", submissionRoute);
 
 export default router;
-
-
-
