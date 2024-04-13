@@ -29,6 +29,11 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  finalProjectID: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "FinalProject",
+  },
   recommendationID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Recommendation",

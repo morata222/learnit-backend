@@ -1,17 +1,14 @@
 import mongoose from "mongoose";
 
 const finalProjectSchema = new mongoose.Schema({
-  userID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
   courseID: {
     type: mongoose.Schema.Types.ObjectId,
+    required: true,
     ref: "Course",
   },
   projectName: {
     type: String,
-    required: true,
+    default: "Final Project",
     trim: true,
   },
   description: {
@@ -19,16 +16,11 @@ const finalProjectSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  projectRepoUrl: {
+  projectDemoUrl: {
     type: String,
-    required: true,
     trim: true,
   },
-  projectStatus: {
-    type: Boolean,
-    required: true,
-    trim: true,
-  },
+
 });
 
 export default mongoose.model("FinalProject", finalProjectSchema);
