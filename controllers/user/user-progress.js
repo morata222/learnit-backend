@@ -1,7 +1,6 @@
 import ApiError from "../../middleware/errors/customError.js";
 import UserProgress from "../../models/user/user-progress.js";
-import User from "../../models/user/user.js";
-
+import Leaderboard from "../../models/user/leaderboard.js";
 export const createNewUserProgress = async (req, res, next , userID) => {
   const NewUserProgress = new UserProgress({userID});
   try {

@@ -31,7 +31,7 @@ export const VerifyCode = (req, res, next) => {
       user
         .save()
         .then(async(user) => {
-          await createNewUserProgress(req, res, next , user._id);
+          await createNewUserProgress(req, res, next , user);
           res.status(200).json({
             message: "User verified successfully , please sign in to continue",
             data: { user: user.username, email: user.email },
@@ -65,6 +65,7 @@ export const SignUp = (req, res, next) => {
           ...req.body,
           password: hashedPassword,
           verificationCode,
+          photoUrl: "https://res.cloudinary.com/dqhdokahr/image/upload/v1708426944/no_avatar_1_tjgnin.png"
         });
 
         // save the user with hashed password

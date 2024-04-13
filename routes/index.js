@@ -19,6 +19,7 @@ import postRoute from "./community/post.js";
 import userProgressRoute from "./user/user-progress.js";
 import certificateRoute from "./course/certificate.js";
 import submissionRoute from "./course/submission.js";
+import leaderboardRoute from "./user/leaderboard.js";
 
 const router = express.Router();
 
@@ -41,5 +42,6 @@ router.use("/final-project", finalProjectRoute);
 router.use("/post", postRoute);
 router.use("/user-progress", userProgressRoute);
 router.use("/submission", submissionRoute);
+router.use("/leaderboard", leaderboardRoute);
 
 export default router;
