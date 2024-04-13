@@ -1,11 +1,11 @@
 import express from 'express';
 
+import {addCourseToWishlist,createWishlist,getWishlist,removeCourseFromWishlist} from '../../controllers/user/wishlist.js';
+
 const router = express.Router();
 
-router.get('/getWishlistCourses', (req, res) => {});
-router.get('/:userId', (req, res) => {});
-router.post('/addNewCourseToWishlist', (req, res) => {});
-router.patch('/updateWishlist', (req, res) => {});
-router.delete('/deleteCourseFromWishlist', (req, res) => {});
+router.get('/:userID', getWishlist);
+router.put('/addNewCourseToWishlist',addCourseToWishlist );
+router.put('/removeCourseFromWishlist',removeCourseFromWishlist );
 
 export default router;

@@ -1,11 +1,10 @@
 import ApiError from "../../middleware/errors/customError.js";
 import UserProgress from "../../models/user/user-progress.js";
-import Leaderboard from "../../models/user/leaderboard.js";
-export const createNewUserProgress = async (req, res, next , userID) => {
+export const createNewUserProgress = async (userID) => {
   const NewUserProgress = new UserProgress({userID});
   try {
     const UserProgress = await NewUserProgress.save();
-    next();
+    return UserProgress;
   } catch (error) {
     next(error);
   }

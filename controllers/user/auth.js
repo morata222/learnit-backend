@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import ApiError from "../../middleware/errors/customError.js";
 import User from "../../models/user/user.js";
 import { createNewUserProgress } from "../../controllers/user/user-progress.js";
+import { createWishlist } from "../../controllers/user/wishlist.js";
 import sendEmail from "../../helpers/sendEmail.js";
 
 import { generateJwtToken } from "../../utils/jwt/jwt.js";
@@ -30,8 +31,9 @@ export const VerifyCode = (req, res, next) => {
       user.isVerified = true;
       user
         .save()
-        .then(async(user) => {
-          await createNewUserProgress(req, res, next , user);
+        .then(async (user) => {
+          await createNewUserProgress(user._id);
+          await createWishlist(user._id);
           res.status(200).json({
             message: "User verified successfully , please sign in to continue",
             data: { user: user.username, email: user.email },
@@ -60,12 +62,14 @@ export const SignUp = (req, res, next) => {
         if (err) {
           return next(new ApiError(err.message, 500));
         }
-        // create a new userProgress
+        // create a new wishlist
+
         const newUser = new User({
           ...req.body,
           password: hashedPassword,
           verificationCode,
-          photoUrl: "https://res.cloudinary.com/dqhdokahr/image/upload/v1708426944/no_avatar_1_tjgnin.png"
+          photoUrl:
+            "https://res.cloudinary.com/dqhdokahr/image/upload/v1708426944/no_avatar_1_tjgnin.png",
         });
 
         // save the user with hashed password

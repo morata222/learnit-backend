@@ -1,4 +1,4 @@
-import User from "../../models/user/user";
+import User from "../../models/user/user.js";
 
 export const getAllUsers = async (req, res, next) => {
   try {
@@ -10,11 +10,21 @@ export const getAllUsers = async (req, res, next) => {
 }
 
 export const getUser = async (req, res, next) => {
-  const userId = req.params.userId;
+  const {userID} = req.params;
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(userID);
     res.status(200).json(user);
   } catch (error) {
+    next(error);
+  }
+}
+export const updateUserInfo = async (req, res, next) => {
+  const {userID} = req.params;
+  try {
+    const user = await User.findByIdAndUpdate(userID, req.body, { new: true });
+    res.status(200).json(user);
+  }
+  catch (error) {
     next(error);
   }
 }

@@ -1,4 +1,2 @@
-models done!
-routes done!
-controllers -> auth done!
-controleers -> course working on
+update user info 
+complete user controller 
