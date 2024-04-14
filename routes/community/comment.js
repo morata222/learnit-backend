@@ -1,11 +1,13 @@
 import express from 'express';
 
+import {createNewCommunity,deleteCommunity,getAllCommunities,getCommunity,updateCommunityInfo} from '../../controllers/community/communtiy.js';
+
 const router = express.Router();
 
-router.get('/getPostComments', (req, res) => {});
-router.get('/commentId', (req, res) => {});
-router.post('/createNewComment', (req, res) => {});
-router.patch('/updateComment', (req, res) => {});
-router.delete('/deleteComment', (req, res) => {});
+router.post('/createNewCommunity', createNewCommunity);
+router.get('/getAllCommunities', getAllCommunities);
+router.get('/:communityID', getCommunity);
+router.put('/:communityID', updateCommunityInfo);
+router.delete('/:communityID', deleteCommunity);
 
 export default router;
