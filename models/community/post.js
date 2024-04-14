@@ -12,12 +12,9 @@ const postSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    datePosted: {
-      type: Date,
-      default: Date.now,
-    },
-    community: {
+    communityID: {
       type: mongoose.Schema.Types.ObjectId,
+      required: true,
       ref: "Community",
     },
     comments: [

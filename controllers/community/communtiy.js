@@ -25,7 +25,7 @@ export const joinCommunity = async (req, res, next) => {
 export const getCommunity = async (req, res, next) => {
   const communityID = req.params.communityID;
   try {
-    const community = await Community.findById(communityID);
+    const community = await Community.findById(communityID).populate("posts");
     res.status(200).json(community);
   } catch (error) {
     next(error);
