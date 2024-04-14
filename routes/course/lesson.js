@@ -10,9 +10,9 @@ import {
 } from "../../controllers/course/lesson.js";
 const router = express.Router();
 
-router.get("/getSectionLessons/:sectionID", getAllSectionLessons);
+router.post("/create", checkFields, VerifyToken, createNewLesson);
+router.get("/all/", getAllSectionLessons);
 router.get("/:lessonID", getLessonById);
-router.post("/createNewLesson", checkFields, VerifyToken, createNewLesson);
 router.put("/:lessonID", checkFields, VerifyToken, updateLesson);
 router.delete("/:lessonID", VerifyToken, deleteLesson);
 

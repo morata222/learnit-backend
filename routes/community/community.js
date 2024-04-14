@@ -13,13 +13,13 @@ import {
 const router = express.Router();
 
 router.post(
-  "/createNewCommunity",
+  "/create",
   checkFields,
   VerifyToken,
   createNewCommunity
 );
-router.put("/joinCommunity", VerifyToken, joinCommunity);
-router.get("/getAllCommunities", getAllCommunities);
+router.put("/join", VerifyToken, joinCommunity);
+router.get("/all", getAllCommunities);
 router.get("/:communityID", getCommunity);
 router.put("/:communityID", VerifyToken, updateCommunityInfo);
 router.delete("/:communityID", VerifyToken, deleteCommunity);

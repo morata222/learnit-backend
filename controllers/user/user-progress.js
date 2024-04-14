@@ -28,8 +28,7 @@ export const getUserProgress = async (req, res, next) => {
   }
 };
 export const updateUserPoints = async (req, res, next) => {
-  const userID = req.params.userID;
-  const { addedPoints } = req.body;
+  const { addedPoints , userID } = req.body;
   try {
     const userProgress = await UserProgress.findOneAndUpdate(
       { userID },
@@ -45,8 +44,7 @@ export const updateUserPoints = async (req, res, next) => {
   }
 };
 export const updateUserCertificates = async (req, res, next) => {
-  const userID = req.params.userID;
-  const { certificateID } = req.body;
+  const { certificateID , userID } = req.body;
   try {
     const userProgress = await UserProgress.findOneAndUpdate(
       { userID },
@@ -62,8 +60,7 @@ export const updateUserCertificates = async (req, res, next) => {
   }
 };
 export const updateUserInProgressCourses = async (req, res, next) => {
-  const userID = req.params.userID;
-  const { courseID } = req.body;
+  const { courseID , userID } = req.body;
   try {
     const userProgress = await UserProgress.findOneAndUpdate(
       { userID },

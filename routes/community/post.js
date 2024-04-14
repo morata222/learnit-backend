@@ -12,8 +12,8 @@ import {
 
 const router = express.Router();
 
-router.post("/createNewPost", checkFields, VerifyToken, createPost);
-router.get("/getCommunityPosts", getAllPosts);
+router.post("/create", checkFields, VerifyToken, createPost);
+router.get("/all", getAllPosts);
 router.get("/:postID", getPost);
 router.put("/:postID", checkFields, VerifyToken, updatePost);
 router.delete("/:postID", VerifyToken, deletePost);

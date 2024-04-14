@@ -7,15 +7,12 @@ const commentSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    datePosted: {
-      type: Date,
-      default: Date.now,
-    },
-    post: {
+    postID: {
       type: mongoose.Schema.Types.ObjectId,
+      required: true,
       ref: "Post",
     },
-    user: {
+    userID: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },

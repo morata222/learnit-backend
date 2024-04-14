@@ -6,8 +6,8 @@ import {createNewFinalProject,deleteFinalProject,getAllFinalProjects,getFinalPro
 
 const router = express.Router();
 
-router.get('/getCourseFinalProject', getAllFinalProjects );
-router.post('/createNewFinalProject',  checkFields, VerifyToken, createNewFinalProject);
+router.get('/all', getAllFinalProjects );
+router.post('/create',  checkFields, VerifyToken, createNewFinalProject);
 router.get('/:FinalProjectID', getFinalProjectById );
 router.put('/:FinalProjectID', checkFields, VerifyToken, updateFinalProject);
 router.delete('/:FinalProjectID', VerifyToken, deleteFinalProject);

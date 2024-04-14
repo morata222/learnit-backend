@@ -10,10 +10,10 @@ import {
 
 const router = express.Router();
 
-router.get("/getAllUsersProgress", getAllUserProgresss);
+router.get("/all", getAllUserProgresss);
 router.get("/:userID", getUserProgress);
-router.put("/updateUserPoints/:userID",VerifyToken, updateUserPoints);
-router.put("/updateUserCertificates/:userID",VerifyToken, updateUserCertificates);
-router.put("/updateUserInProgressCourses/:userID",VerifyToken, updateUserInProgressCourses);
+router.put("/updateUserPoints",VerifyToken, updateUserPoints);
+router.put("/updateUserCertificates",VerifyToken, updateUserCertificates);
+router.put("/updateUserInProgressCourses",VerifyToken, updateUserInProgressCourses);
 
 export default router;

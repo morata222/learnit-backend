@@ -22,7 +22,7 @@ export const createNewLesson = async (req, res, next) => {
 };
 export const getAllSectionLessons = async (req, res, next) => {
   try {
-    const { sectionID } = req.params;
+    const { sectionID } = req.body;
     const sections = await CourseSection.findById(sectionID).populate(
       "lessons"
     );

@@ -2,14 +2,16 @@ import express from 'express';
 
 import { VerifyToken } from '../../middleware/jwt/verifyToken.js';
 import { checkFields } from '../../middleware/checkFields.js';
-import {createNewCommunity,deleteCommunity,getAllCommunities,getCommunity,updateCommunityInfo} from '../../controllers/community/communtiy.js';
+import {createComment,deleteComment,getComment,getComments,updateComment} from '../../controllers/community/comment.js';
 
 const router = express.Router();
 
-router.post('/createNewCommunity', createNewCommunity);
-router.get('/getAllCommunities', getAllCommunities);
-router.get('/:communityID', getCommunity);
-router.put('/:communityID', updateCommunityInfo);
-router.delete('/:communityID', deleteCommunity);
+router.post('/create', VerifyToken, checkFields, createComment);
+router.get('/all', VerifyToken, getComments);
+router.get('/:commentID', VerifyToken, getComment);
+router.put('/:commentID', VerifyToken, checkFields, updateComment);
+router.delete('/:commentID', VerifyToken, deleteComment);
+
+
 
 export default router;

@@ -16,7 +16,7 @@ export const createQuizQuestion = async (req, res, next) => {
 };
 export const getAllQuizQuestions = async (req, res, next) => {
   try {
-    const { quizID } = req.params;
+    const { quizID } = req.body;
     const questions = await Quiz.findById(quizID).populate("questions");
     res.status(200).json(questions);
   } catch (error) {

@@ -4,8 +4,8 @@ import { checkFields } from '../../middleware/checkFields.js';
 import {createNewSubCategory, deleteSubCategory,getAllSubCategories, getSubCategoryById,updateSubCategory} from '../../controllers/course/sub-category.js';
 const router = express.Router();
 
-router.get('/getAllSubCategories',getAllSubCategories );
-router.post('/createNewSubCategory', createNewSubCategory );
+router.get('/all',getAllSubCategories );
+router.post('/create', createNewSubCategory );
 router.get('/:subCategoryID', getSubCategoryById );
 router.put('/:subCategoryID', checkFields, VerifyToken,  updateSubCategory);
 router.delete('/:subCategoryID',VerifyToken, deleteSubCategory );

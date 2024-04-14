@@ -11,8 +11,8 @@ import {
 
 const router = express.Router();
 
-router.post("/createFeedback", checkFields, VerifyToken, createFeedback);
-router.get("/getCourseFeedbacks", getCourseFeedbacks);
+router.post("/create", checkFields, VerifyToken, createFeedback);
+router.get("/all", getCourseFeedbacks);
 router.get("/:feedbackID", getFeedback);
 router.put("/:feedbackID", checkFields, VerifyToken, updateFeedback);
 router.delete("/:feedbackID", VerifyToken, deleteFeedback);

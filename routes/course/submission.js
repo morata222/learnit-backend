@@ -11,8 +11,8 @@ import {
 
 const router = express.Router();
 
-router.get("/getAllSubmissions", getAllSubmissions);
-router.post("/createNewSubmission", createNewSubmission);
+router.get("/all", getAllSubmissions);
+router.post("/create", createNewSubmission);
 router.get("/:SubmissionID", getSubmissionById);
 router.put("/:SubmissionID", checkFields, VerifyToken, updateSubmission);
 router.delete("/:SubmissionID", VerifyToken, deleteSubmission);

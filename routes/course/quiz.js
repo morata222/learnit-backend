@@ -5,7 +5,7 @@ import { checkFields } from '../../middleware/checkFields.js';
 import {createLessonQuiz,deleteQuiz,getQuizById,updateQuiz} from "../../controllers/course/quiz.js"
 const router = express.Router();
 
-router.post('/createNewQuiz', checkFields, VerifyToken, createLessonQuiz);
+router.post('/create', checkFields, VerifyToken, createLessonQuiz);
 router.get('/:quizID', getQuizById);
 router.put('/:quizID', checkFields, VerifyToken, updateQuiz);
 router.delete('/:quizID', VerifyToken, deleteQuiz);
