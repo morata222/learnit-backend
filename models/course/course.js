@@ -26,18 +26,17 @@ const courseSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Certificate",
     },
-    rating: {
+    totalRating: {
       type: Number,
       default: 0,
     },
-    finalProjectID: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "FinalProject",
+    numRatings: {
+      type: Number,
+      default: 0,
     },
-    recommendationID: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Recommendation",
+    averageRating: {
+      type: Number,
+      default: 0,
     },
     courseSections: [
       {
