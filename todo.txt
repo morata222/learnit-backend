@@ -1,2 +1,5 @@
-update user info 
-complete user controller 
+do laundry
+feedback
+start community - {community , post , comments}
+filter and search functionality
+web socket
