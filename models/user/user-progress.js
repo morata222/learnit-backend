@@ -26,11 +26,36 @@ const userProgressSchema = new mongoose.Schema(
         ref: "Course",
       },
     ],
+    allTimeRanking: {
+      type: Number,
+      default: 0,
+    },
+    monthlyRanking: {
+      type: Number,
+      default: 2,
+    },
+    lastRankingUpdate: {
+      type: Date,
+      default: Date.now,
+    },
   },
 
   {
     timestamps: true,
   }
 );
+
+// Function to reset monthlyRanking for all users at the beginning of each month
+userProgressSchema.statics.resetMonthlyRankings = async function () {
+  // Calculate the start of the current month
+  const now = new Date();
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+  // Update all users' monthlyRanking to 0
+  await this.updateMany(
+    { lastRankingUpdate: { $lt: startOfMonth } },
+    { $set: { monthlyRanking: 0, lastRankingUpdate: now } }
+  );
+};
 
 export default mongoose.model("UserProgress", userProgressSchema);

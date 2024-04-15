@@ -9,6 +9,7 @@ import dotenv from "dotenv";
 import MongoConnection from "./config/db.js";
 import errorHandler from "./middleware/errors/handleError.js";
 import Routes from "./routes/index.js";
+import {scheduleMonthlyRankingsReset} from './utils/checkStartOfMonth.js'
 
 // middlewares
 const app = express(); // express app
@@ -18,6 +19,8 @@ app.use(bodyParser.json()); // parse application/json
 app.use(cookieParser()); // parse cookies
 app.use('/' , Routes); // Using the routes
 app.use(errorHandler); // Using the custom error handling middleware should be the last middleware in the stack
+
+scheduleMonthlyRankingsReset(); // Schedule the monthly rankings reset
 
 // application start
 MongoConnection()
