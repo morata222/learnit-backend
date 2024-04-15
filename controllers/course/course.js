@@ -15,12 +15,22 @@ export const createNewCourse = async (req, res, next) => {
   }
 };
 export const getAllCourses = async (req, res, next) => {
-  try {
-    const courses = await Course.find().populate("courseSections");
-    res.status(200).json(courses);
-  } catch (error) {
-    next(error);
-  }
+    const { search } = req.query;
+    if (search) {
+      try {
+        const courses = await Course.find({ courseName: { $regex: search, $options: "i" } }).populate("courseSections");
+        res.status(200).json(courses);
+      } catch (error) {
+        next(error);
+      }
+    } else {
+      try {
+        const courses = await Course.find().populate("courseSections");
+        res.status(200).json(courses);
+      } catch (error) {
+        next(error);
+      }
+    }
 };
 export const getCourseById = async (req, res, next) => {
   const { courseId } = req.params;
