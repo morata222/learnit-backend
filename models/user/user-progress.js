@@ -32,7 +32,7 @@ const userProgressSchema = new mongoose.Schema(
     },
     monthlyRanking: {
       type: Number,
-      default: 2,
+      default: 0,
     },
     lastRankingUpdate: {
       type: Date,
