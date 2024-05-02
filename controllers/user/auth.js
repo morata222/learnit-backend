@@ -50,7 +50,6 @@ export const VerifyCode = (req, res, next) => {
 export const SignUp = (req, res, next) => {
   const { email, password } = req.body;
   const verificationCode = Math.floor(100000 + Math.random() * 900000);
-
   User.findOne({ email })
     .then(async (user) => {
       // check if user already exists
