@@ -19,7 +19,9 @@ app.use(bodyParser.json()); // parse application/json
 app.use(cookieParser()); // parse cookies
 app.use('/' , Routes); // Using the routes
 app.use(errorHandler); // Using the custom error handling middleware should be the last middleware in the stack
-app.get("/" , (req , res) => { console.log("app is running");})
+app.get("/", (req, res) => {
+  res.send("Welcome to the backend of the e-learning platform");
+});
 
 scheduleMonthlyRankingsReset(); // Schedule the monthly rankings reset
 
