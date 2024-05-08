@@ -12,7 +12,7 @@ import {
 
 const router = express.Router();
 
-router.post("/create", checkFields, VerifyToken, createPost);
+router.post("/create", checkFields, createPost);
 router.get("/all", getAllPosts);
 router.get("/:postID", getPost);
 router.put("/:postID", checkFields, VerifyToken, updatePost);
