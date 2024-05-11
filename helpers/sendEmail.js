@@ -11,7 +11,7 @@ export default async function sendEmail(email, token) {
     secure: true,
     auth: {
       user: process.env.GMAIL_ACCOUNT,
-      pass: process.env.APP_PASSWORD_SECRET_KEY,
+      pass: 'wfbv kttw trwr bipk',
     },
   });
 
