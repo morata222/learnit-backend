@@ -124,6 +124,30 @@ export const SignIn = async (req, res, next) => {
     next(new ApiError(error.message, 500));
   }
 };
+export const SignInWithProvider = async (req, res, next) => {
+  const { email, username , photoUrl } = req.body;
+  try {
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+       const newUser = new User({
+          email,
+          username,
+          photoUrl,
+       })
+       const savedUser = await newUser.save();
+       res.status(201).json({
+        message: "Signed in successfully",
+        user : savedUser
+       })
+    }  
+    res
+      .status(200)
+      .json({ message: "Signed in successfully", user : user });
+  } catch (error) {
+    next(new ApiError(error.message, 500));
+  }
+};
 
 export const SignOut = async (req, res, next) => {
   const { user } = req.user;
