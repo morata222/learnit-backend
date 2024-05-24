@@ -12,7 +12,7 @@ const userProgressSchema = new mongoose.Schema(
     },
     rank: {
       type: String,
-      default: "Beginner",
+      default: "Newbie",
     },
     certificates: [
       {

@@ -23,19 +23,6 @@ const userSchema = new mongoose.Schema(
       trim: true,
       default: "https://res.cloudinary.com/dqhdokahr/image/upload/v1708426944/no_avatar_1_tjgnin.png",
     },
-    dateJoined: {
-      type: Date,
-      default: Date.now,
-    },
-    verificationCode: {
-      type: Number,
-      default: null,
-      RegExp: /^[0-9]{6}$/,
-    },
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
     isInstructor: {
       type: Boolean,
       default: false,

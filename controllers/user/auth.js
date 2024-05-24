@@ -75,7 +75,9 @@ export const SignUp = (req, res, next) => {
 
         newUser
           .save()
-          .then((user) => {
+          .then(async (user) => {
+            await createNewUserProgress(user._id);
+            await createWishlist(user._id);
             res.status(201).json({
               message: "User Created Successfully",
             });
@@ -127,9 +129,8 @@ export const SignInWithProvider = async (req, res, next) => {
   const { email, username, password, photoUrl } = req.body;
   try {
     // Find user by email
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("-password");
     if (!user) {
-    
       // save the user with hashed password
 
       bcrypt.hash(password, 12, (err, hashedPassword) => {
@@ -142,14 +143,16 @@ export const SignInWithProvider = async (req, res, next) => {
           email,
           username,
           photoUrl,
-          password : hashedPassword,
+          password: hashedPassword,
         });
 
         // save the user with hashed password
 
         newUser
           .save()
-          .then((user) => {
+          .then(async(user) => {
+            await createNewUserProgress(user._id);
+            await createWishlist(user._id);
             res.status(201).json({
               message: "User Signed in Successfully",
               user: user,

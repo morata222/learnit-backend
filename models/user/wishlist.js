@@ -8,9 +8,7 @@ const wishlistSchema = new mongoose.Schema(
     },
     courses: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        // how to make sure that the course is unique in the wishlist
-        
+        type: mongoose.Schema.Types.ObjectId,        
         ref: "Course",
       },
     ],
