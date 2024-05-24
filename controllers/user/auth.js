@@ -69,7 +69,6 @@ export const SignUp = (req, res, next) => {
           verificationCode,
           photoUrl:
             "https://res.cloudinary.com/dqhdokahr/image/upload/v1708426944/no_avatar_1_tjgnin.png",
-            
         });
 
         // save the user with hashed password
@@ -77,9 +76,9 @@ export const SignUp = (req, res, next) => {
         newUser
           .save()
           .then((user) => {
-          res.status(201).json({
-            message: "User Created Successfully",
-          })
+            res.status(201).json({
+              message: "User Created Successfully",
+            });
           })
           .catch((error) => {
             return next(new ApiError(error.message, 500));
@@ -119,31 +118,58 @@ export const SignIn = async (req, res, next) => {
     res
       .status(200)
       // .cookie("accessToken", token, { httpOnly: true })
-      .json({ message: "Signed in successfully", user : user });
+      .json({ message: "Signed in successfully", user: user });
   } catch (error) {
     next(new ApiError(error.message, 500));
   }
 };
 export const SignInWithProvider = async (req, res, next) => {
-  const { email, username , photoUrl } = req.body;
+  const { email, username, password, photoUrl } = req.body;
   try {
     // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
-       const newUser = new User({
+      const newUser = new User({
+        email,
+        username,
+        photoUrl,
+        password,
+      });
+      // save the user with hashed password
+
+      bcrypt.hash(password, 12, (err, hashedPassword) => {
+        if (err) {
+          return next(new ApiError(err.message, 500));
+        }
+        // create a new wishlist
+
+        const newUser = new User({
           email,
           username,
           photoUrl,
-       })
-       const savedUser = await newUser.save();
-       res.status(201).json({
-        message: "Signed in successfully",
-        user : savedUser
-       })
-    }  
-    res
-      .status(200)
-      .json({ message: "Signed in successfully", user : user });
+          password,
+        });
+
+        // save the user with hashed password
+
+        newUser
+          .save()
+          .then((user) => {
+            res.status(201).json({
+              message: "User Signed in Successfully",
+              user: user,
+            });
+          })
+          .catch((error) => {
+            return next(new ApiError(error.message, 500));
+          });
+      });
+    } else {
+      res.status(201).json({
+        message: "User Signed in Successfully",
+        user: user,
+      });
+    }
   } catch (error) {
     next(new ApiError(error.message, 500));
   }
