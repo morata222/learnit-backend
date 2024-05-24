@@ -129,12 +129,7 @@ export const SignInWithProvider = async (req, res, next) => {
     // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
-      const newUser = new User({
-        email,
-        username,
-        photoUrl,
-        password,
-      });
+    
       // save the user with hashed password
 
       bcrypt.hash(password, 12, (err, hashedPassword) => {
@@ -147,7 +142,7 @@ export const SignInWithProvider = async (req, res, next) => {
           email,
           username,
           photoUrl,
-          password,
+          password : hashedPassword,
         });
 
         // save the user with hashed password
