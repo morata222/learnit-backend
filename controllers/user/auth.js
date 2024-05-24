@@ -107,19 +107,19 @@ export const SignIn = async (req, res, next) => {
       next(new ApiError("Wrong password", 401));
     }
     // Generate JWT token
-    const token = generateJwtToken({
-      _id: user._id,
-      isInstructor: user.isInstructor,
-      isVerified: user.isVerified,
-    });
+    // const token = generateJwtToken({
+    //   _id: user._id,
+    //   isInstructor: user.isInstructor,
+    //   isVerified: user.isVerified,
+    // });
 
-    user.lastAccessToken = token;
-    await user.save();
+    // user.lastAccessToken = token;
+    // await user.save();
     // Send response
     res
       .status(200)
-      .cookie("accessToken", token, { httpOnly: true })
-      .json({ message: "Signed in successfully", token });
+      // .cookie("accessToken", token, { httpOnly: true })
+      .json({ message: "Signed in successfully", user : user });
   } catch (error) {
     next(new ApiError(error.message, 500));
   }
