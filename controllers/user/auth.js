@@ -77,14 +77,9 @@ export const SignUp = (req, res, next) => {
         newUser
           .save()
           .then((user) => {
-            sendEmail(email, verificationCode);
-            res.cookie("verificationCode", verificationCode, {
-              httpOnly: true,
-            });
-            res.status(201).json({
-              message: "email verification code sent to your email",
-              data: { user: user.username, email: user.email },
-            });
+          res.status(201).json({
+            message: "User Created Successfully",
+          })
           })
           .catch((error) => {
             return next(new ApiError(error.message, 500));
