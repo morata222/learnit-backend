@@ -69,6 +69,7 @@ export const SignUp = (req, res, next) => {
           verificationCode,
           photoUrl:
             "https://res.cloudinary.com/dqhdokahr/image/upload/v1708426944/no_avatar_1_tjgnin.png",
+            
         });
 
         // save the user with hashed password

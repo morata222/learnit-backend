@@ -14,7 +14,7 @@ export default async function sendEmail(email, token) {
       pass: process.env.APP_PASSWORD_SECRET_KEY,
     },
   });
-
+  
   const htmlContent = `
   <div>
     <span>Verification code is: </span>

@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema(
     photoUrl: {
       type: String,
       trim: true,
+      default: "https://res.cloudinary.com/dqhdokahr/image/upload/v1708426944/no_avatar_1_tjgnin.png",
     },
     dateJoined: {
       type: Date,
