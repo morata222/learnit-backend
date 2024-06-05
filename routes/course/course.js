@@ -12,11 +12,11 @@ import { checkFields } from "../../middleware/checkFields.js";
 
 const router = express.Router();
 
-router.post("/create", checkFields, VerifyToken, createNewCourse);
+router.post("/create", checkFields, createNewCourse);
 router.get("/all", getAllCourses);
 router.get("/:courseId", getCourseById);
-router.put("/:courseId" , checkFields , VerifyToken , updateCourse)
-router.delete("/:courseId" , checkFields , VerifyToken , deleteCourse)
+router.put("/:courseId" , checkFields  , updateCourse)
+router.delete("/:courseId" , checkFields  , deleteCourse)
 
 
 export default router;

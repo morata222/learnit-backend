@@ -12,6 +12,11 @@ const subCategorySchema = new mongoose.Schema(
       required: true,
       ref: "Category",
     },
+    CategoryName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     courses: [
       {
         type: mongoose.Schema.Types.ObjectId,

@@ -3,12 +3,13 @@ import SubCategory from "../../models/course/sub-category.js";
 import ApiError from "../../middleware/errors/customError.js";
 
 export const createNewCourse = async (req, res, next) => {
-  if (!req.isInstructor)
-    return next(new ApiError("You are not authorized to create a course", 403));
-  const NewCourse = new Course({ ...req.body, instructorID: req.userId });
+  // if (!req.isInstructor)
+  //   return next(new ApiError("You are not authorized to create a course", 403));
+  const NewCourse = new Course({ ...req.body});
+  const {subCategorName} = req.body;
   try {
     const course = await NewCourse.save();
-    const subCategory = await SubCategory.findByIdAndUpdate( req.body.subCategoryID , { $push: { courses: course._id } }, { new: true }); 
+    const subCategory = await SubCategory.findOneAndUpdate( subCategorName, { $push: { courses: course._id } }, { new: true }); 
     res.status(201).json(course);
   } catch (error) {
     next(error);
@@ -43,12 +44,12 @@ export const getCourseById = async (req, res, next) => {
   }
 };
 export const updateCourse = async (req, res, next) => {
-  if (!req.isInstructor)
-    return next(new ApiError("You are not authorized to update a course", 403));
-  if (req.userId !== req.body.instructorID)
-    return next(
-      new ApiError("You are not authorized to update this course", 403)
-    );
+  // if (!req.isInstructor)
+  //   return next(new ApiError("You are not authorized to update a course", 403));
+  // if (req.userId !== req.body.instructorID)
+  //   return next(
+  //     new ApiError("You are not authorized to update this course", 403)
+  //   );
   const { courseId } = req.params;
   try {
     const course = await Course.findByIdAndUpdate(courseId, req.body, {
@@ -60,12 +61,12 @@ export const updateCourse = async (req, res, next) => {
   }
 };
 export const deleteCourse = async (req, res, next) => {
-  if (!req.isInstructor)
-    return next(new ApiError("You are not authorized to update a course", 403));
-  if (req.userId !== req.body.instructorID)
-    return next(
-      new ApiError("You are not authorized to update this course", 403)
-    );
+  // if (!req.isInstructor)
+  //   return next(new ApiError("You are not authorized to update a course", 403));
+  // if (req.userId !== req.body.instructorID)
+  //   return next(
+  //     new ApiError("You are not authorized to update this course", 403)
+  //   );
   const { courseId } = req.params;
   try {
     await Course.findByIdAndDelete(courseId);
@@ -74,3 +75,10 @@ export const deleteCourse = async (req, res, next) => {
     next(error);
   }
 };
+
+
+for(let i = 0; i < 3; i++) {
+  setTimeout(() => {
+    console.log(i)
+  }, 1000);
+}

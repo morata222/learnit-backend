@@ -7,7 +7,7 @@ export const createNewSubCategory = async (req, res, next) => {
   const NewSubCategory = new SubCategory({ ...req.body});
   try {
     const SubCategory = await NewSubCategory.save();
-    const category = await Category.findByIdAndUpdate(req.body.CategoryID, { $push: { subCategories: SubCategory._id } }, { new: true });
+    const category = await Category.findOneAndUpdate({name:req.body.CategoryName}, { $push: { subCategories: SubCategory._id } }, { new: true });
     res.status(201).json({message : "new SubCategory created successfully"});
   } catch (error) {
     next(error);

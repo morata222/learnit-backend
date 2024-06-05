@@ -7,7 +7,38 @@ const courseSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    students: {
+      type: Number,
+      default: 0,
+    },
+    language: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    numberOfLessons: {
+      type: Number,
+      required: true,
+    },
+    totalVideoTime: {
+      type: Number,
+      required: true,
+    },
+    courseLevel: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    pointsToUnlock: {
+      type: Number,
+      required: true,
+    },
     description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    bannerImage: {
       type: String,
       required: true,
       trim: true,
@@ -17,7 +48,7 @@ const courseSchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
-    subCategoryID: {
+    subCategoryName: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "Category",
@@ -44,10 +75,6 @@ const courseSchema = new mongoose.Schema(
         ref: "CourseSection",
       },
     ],
-    numberOfLessons: {
-      type: Number,
-      required: true,
-    },
   },
   {
     timestamps: true,
