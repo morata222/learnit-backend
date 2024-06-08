@@ -45,13 +45,12 @@ const courseSchema = new mongoose.Schema(
     },
     instructorID: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      // required: true,
       ref: "User",
     },
     subCategoryName: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: true,
-      ref: "Category",
     },
     certificateID: {
       type: mongoose.Schema.Types.ObjectId,

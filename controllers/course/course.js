@@ -75,10 +75,3 @@ export const deleteCourse = async (req, res, next) => {
     next(error);
   }
 };
-
-
-for(let i = 0; i < 3; i++) {
-  setTimeout(() => {
-    console.log(i)
-  }, 1000);
-}
