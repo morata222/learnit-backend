@@ -13,25 +13,25 @@ const courseSchema = new mongoose.Schema(
     },
     language: {
       type: String,
-      required: true,
+      default:"English",
       trim: true,
     },
     numberOfLessons: {
       type: Number,
-      required: true,
+      default:10
     },
     totalVideoTime: {
       type: Number,
-      required: true,
+      default:3.5
     },
     courseLevel: {
       type: String,
-      required: true,
+      default:"beginner",
       trim: true,
     },
     pointsToUnlock: {
       type: Number,
-      required: true,
+      default:100
     },
     description: {
       type: String,

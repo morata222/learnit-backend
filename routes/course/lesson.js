@@ -10,10 +10,10 @@ import {
 } from "../../controllers/course/lesson.js";
 const router = express.Router();
 
-router.post("/create", checkFields, VerifyToken, createNewLesson);
-router.get("/all/", getAllSectionLessons);
+router.post("/create", checkFields, createNewLesson);
+router.get("/all/:sectionID", getAllSectionLessons);
 router.get("/:lessonID", getLessonById);
-router.put("/:lessonID", checkFields, VerifyToken, updateLesson);
-router.delete("/:lessonID", VerifyToken, deleteLesson);
+router.put("/:lessonID", checkFields, updateLesson);
+router.delete("/:lessonID", deleteLesson);
 
 export default router;

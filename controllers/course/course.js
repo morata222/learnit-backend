@@ -5,33 +5,39 @@ import ApiError from "../../middleware/errors/customError.js";
 export const createNewCourse = async (req, res, next) => {
   // if (!req.isInstructor)
   //   return next(new ApiError("You are not authorized to create a course", 403));
-  const NewCourse = new Course({ ...req.body});
-  const {subCategorName} = req.body;
+  const NewCourse = new Course({ ...req.body });
+  const { subCategorName } = req.body;
   try {
     const course = await NewCourse.save();
-    const subCategory = await SubCategory.findOneAndUpdate( subCategorName, { $push: { courses: course._id } }, { new: true }); 
+    const subCategory = await SubCategory.findOneAndUpdate(
+      subCategorName,
+      { $push: { courses: course._id } },
+      { new: true }
+    );
     res.status(201).json(course);
   } catch (error) {
     next(error);
   }
 };
 export const getAllCourses = async (req, res, next) => {
-    const { search } = req.query;
-    if (search) {
-      try {
-        const courses = await Course.find({ courseName: { $regex: search, $options: "i" } }).populate("courseSections");
-        res.status(200).json(courses);
-      } catch (error) {
-        next(error);
-      }
-    } else {
-      try {
-        const courses = await Course.find().populate("courseSections");
-        res.status(200).json(courses);
-      } catch (error) {
-        next(error);
-      }
+  const { search } = req.query;
+  if (search) {
+    try {
+      const courses = await Course.find({
+        courseName: { $regex: search, $options: "i" },
+      }).populate("courseSections");
+      res.status(200).json(courses);
+    } catch (error) {
+      next(error);
     }
+  } else {
+    try {
+      const courses = await Course.find().populate("courseSections");
+      res.status(200).json(courses);
+    } catch (error) {
+      next(error);
+    }
+  }
 };
 export const getCourseById = async (req, res, next) => {
   const { courseId } = req.params;
@@ -71,6 +77,14 @@ export const deleteCourse = async (req, res, next) => {
   try {
     await Course.findByIdAndDelete(courseId);
     res.status(200).json({ message: "Course deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};
+export const deleteAllCourses = async (req, res, next) => {
+  try {
+    await Course.deleteMany({});
+    res.status(200).json({ message: "Courses deleted successfully" });
   } catch (error) {
     next(error);
   }

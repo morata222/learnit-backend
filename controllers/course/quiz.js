@@ -4,7 +4,6 @@ import ApiError from "../../middleware/errors/customError.js";
 
 
 export const createLessonQuiz = async (req, res, next) => {
-   if(!req.isInstructor) return next(new ApiError("You are not authorized to create a lesson", 403));
   const lessonID = req.body.lessonID;
   const NewQuiz = new Quiz({ ...req.body});
   try {
@@ -26,7 +25,6 @@ export const getQuizById = async (req, res, next) => {
   }
 };
 export const updateQuiz = async (req, res, next) => {
-  if(!req.isInstructor) return next(new ApiError("You are not authorized to update a course", 403));
   const { quizID } = req.params;
   try {
     const quiz = await Quiz.findByIdAndUpdate(quizID, req.body, {
@@ -39,7 +37,6 @@ export const updateQuiz = async (req, res, next) => {
   }
 };
 export const deleteQuiz = async (req, res, next) => {
-  if(!req.isInstructor) return next(new ApiError("You are not authorized to update a course", 403));
   const { quizID } = req.params;
   try {
     await Quiz.findByIdAndDelete(quizID);

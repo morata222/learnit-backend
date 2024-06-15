@@ -11,9 +11,19 @@ const lessonSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    videoUrl: {
+    videoId: {
       type: String,
       required: true,
+      trim: true,
+    },
+    start: {
+      type: String,
+      default:'0',
+      trim: true,
+    },
+    end: {
+      type: String,
+      default:"999999999999999999999999999",
       trim: true,
     },
     sectionID: {
@@ -21,10 +31,10 @@ const lessonSchema = new mongoose.Schema(
       required: true,
       ref: "CourseSection",
     },
-    quizID: {
+    quizID:{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Quiz",
-    },
+    }
   },
   {
     timestamps: true,

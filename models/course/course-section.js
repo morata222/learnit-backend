@@ -12,10 +12,6 @@ const courseSectionSchema = new mongoose.Schema(
       required: true,
       ref: "Course",
     },
-    totalTime: {
-      type: Number,
-      required: true,
-    },
     lessons: [
       {
         type: mongoose.Schema.Types.ObjectId,

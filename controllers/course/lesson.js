@@ -4,8 +4,6 @@ import Lesson from "../../models/course/lesson.js";
 import courseSection from "../../models/course/course-section.js";
 
 export const createNewLesson = async (req, res, next) => {
-  if (!req.isInstructor)
-    return next(new ApiError("You are not authorized to create a lesson", 403));
   const sectionID = req.body.sectionID;
   const NewLesson = new Lesson({ ...req.body });
   try {
@@ -22,11 +20,9 @@ export const createNewLesson = async (req, res, next) => {
 };
 export const getAllSectionLessons = async (req, res, next) => {
   try {
-    const { sectionID } = req.body;
-    const sections = await CourseSection.findById(sectionID).populate(
-      "lessons"
-    );
-    res.status(200).json(sections);
+    const { sectionID } = req.params;
+    const lessons = await Lesson.find({sectionID: sectionID}).populate("quizID")
+    res.status(200).json(lessons);
   } catch (error) {
     next(error);
   }
@@ -41,8 +37,6 @@ export const getLessonById = async (req, res, next) => {
   }
 };
 export const updateLesson = async (req, res, next) => {
-  if (!req.isInstructor)
-    return next(new ApiError("You are not authorized to update a course", 403));
   const { lessonID } = req.params;
   try {
     const lesson = await Lesson.findByIdAndUpdate(lessonID, req.body, {
@@ -54,8 +48,6 @@ export const updateLesson = async (req, res, next) => {
   }
 };
 export const deleteLesson = async (req, res, next) => {
-  if (!req.isInstructor)
-    return next(new ApiError("You are not authorized to update a course", 403));
   const { lessonID } = req.params;
   try {
     await Lesson.findByIdAndDelete(lessonID);

@@ -12,10 +12,10 @@ import {
 
 const router = express.Router();
 
-router.get("/all", getCourseSections);
-router.post("/create", checkFields, VerifyToken, createNewSection);
+router.get("/all/:courseID", getCourseSections);
+router.post("/create", checkFields, createNewSection);
 router.get("/:sectionId", getCourseSectionById);
-router.put("/:sectionId", checkFields, VerifyToken, updateCourseSection);
-router.delete("/:sectionId", checkFields, VerifyToken, deleteCourseSection);
+router.put("/:sectionId", checkFields, updateCourseSection);
+router.delete("/:sectionId", checkFields, deleteCourseSection);
 
 export default router;
