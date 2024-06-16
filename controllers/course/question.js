@@ -3,7 +3,6 @@ import Question from "../../models/course/question.js";
 import ApiError from "../../middleware/errors/customError.js";
 
 export const createQuizQuestion = async (req, res, next) => {
-   if(!req.isInstructor) return next(new ApiError("You are not authorized to create a lesson", 403));
   const quizID = req.body.quizID;
   const NewQuestion = new Question({ ...req.body});
   try {
@@ -33,7 +32,6 @@ export const getQuestionById = async (req, res, next) => {
   }
 };
 export const updateQuestion = async (req, res, next) => {
-  if(!req.isInstructor) return next(new ApiError("You are not authorized to update a course", 403));
   const { questionID } = req.params;
   try {
     const question = await Question.findByIdAndUpdate(questionID, req.body, {
@@ -46,7 +44,6 @@ export const updateQuestion = async (req, res, next) => {
   }
 };
 export const deleteQuestion = async (req, res, next) => {
-  if(!req.isInstructor) return next(new ApiError("You are not authorized to update a course", 403));
   const { questionID } = req.params;
   try {
     await Question.findByIdAndDelete(questionID);

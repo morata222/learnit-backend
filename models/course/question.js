@@ -7,15 +7,19 @@ const questionSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    options: {
+    answers: {
       type: Array,
       trim: true,
       required: true,
     },
-    correctAnswer: {
-      type: String,
+    answer: {
+      type: Number,
       trim: true,
       required: true,
+    },
+    choosenAnswer: {
+      type: Number,
+      default: -1,
     },
     quizID: {
       type: mongoose.Schema.Types.ObjectId,

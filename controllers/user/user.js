@@ -28,3 +28,12 @@ export const updateUserInfo = async (req, res, next) => {
     next(error);
   }
 }
+
+export const deleteAllUsers = async (req, res, next) => {
+  try {
+    await User.deleteMany();
+    res.status(200).json({ message: "All users deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+}
