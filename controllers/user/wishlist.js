@@ -2,15 +2,45 @@ import User from "../../models/user/user.js";
 import Wishlist from "../../models/user/wishlist.js";
 
 export const createWishlist = async (userID) => {
-  const newWishlist = new Wishlist({ userID });
   try {
-    const wishlist = await newWishlist.save();
-    return wishlist;
+    const existingWishlist = await Wishlist.findOne({ userID });
+    if (!existingWishlist) {
+      const wishlist = new Wishlist({
+        userID,
+        courses: [] // Ensure courses is initialized as an empty array
+      });
+      console.log(`Attempting to create wishlist for user: ${userID} with data:`, wishlist);
+      await wishlist.save();
+      console.log(`Wishlist created for user: ${userID}`);
+    } else {
+      console.log(`Wishlist already exists for user: ${userID}`);
+    }
   } catch (error) {
-    throw(error);
+    console.error(`Error creating wishlist for user ${userID} with data:`, error);
+  }
+};
+export const createWishlistForEachUser = async () => {
+  try {
+    const users = await User.find();
+    for (const user of users) {
+      const existingWishlist = await Wishlist.findOne({ userId: user._id });
+      if (!existingWishlist) {
+        await createWishlist(user._id);
+      }
+    }
+  } catch (error) {
+    console.error('Error creating wishlists:', error);
   }
 };
 
+export const getAllUserWishlist = async (req, res, next) => {
+  try {
+    const wishlist = await Wishlist.find();
+    res.status(200).json(wishlist);
+  } catch (error) {
+    next(error);
+  }
+};
 export const getWishlist = async (req, res, next) => {
   const { userID } = req.params;
   try {

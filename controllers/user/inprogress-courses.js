@@ -48,3 +48,6 @@ export const removeCourseFromInProgressCourse = async (req, res, next) => {
     next(error);
   }
 };
+
+
+ 
