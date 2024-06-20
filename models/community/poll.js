@@ -9,9 +9,15 @@ const PollSchema = new mongoose.Schema(
     },
     options: [
       {
-        type: String,
-        required: true,
-        trim: true,
+        title: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        count: {
+          type: Number,
+          default: 0,
+        },
       },
     ],
     communityID: {

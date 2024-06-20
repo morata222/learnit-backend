@@ -28,6 +28,12 @@ const communitySchema = new mongoose.Schema(
         ref: "Post",
       },
     ],
+    polls: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Poll",
+      },
+    ],
   },
   {
     timestamps: true,

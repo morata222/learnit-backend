@@ -3,19 +3,19 @@ import express from "express";
 import { VerifyToken } from "../../middleware/jwt/verifyToken.js";
 import { checkFields } from "../../middleware/checkFields.js";
 import {
-  createPost,
-  deletePost,
-  getAllPosts,
-  getPost,
-  updatePost,
-} from "../../controllers/community/post.js";
+  createPoll,
+  deletePoll,
+  getAllPolls,
+  getPoll,
+  updatePoll,
+} from "../../controllers/community/poll.js";
 
 const router = express.Router();
 
-router.post("/create", checkFields, createPost);
-router.get("/all", getAllPosts);
-router.get("/:postID", getPost);
-router.put("/:postID", checkFields, VerifyToken, updatePost);
-router.delete("/:postID", VerifyToken, deletePost);
+router.post("/create", checkFields, createPoll);
+router.get("/all", getAllPolls);
+router.get("/:pollID", getPoll);
+router.put("/:pollID", checkFields, updatePoll);
+router.delete("/:pollID", deletePoll);
 
 export default router;

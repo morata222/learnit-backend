@@ -9,9 +9,7 @@ export const createWishlist = async (userID) => {
         userID,
         courses: [] // Ensure courses is initialized as an empty array
       });
-      console.log(`Attempting to create wishlist for user: ${userID} with data:`, wishlist);
       await wishlist.save();
-      console.log(`Wishlist created for user: ${userID}`);
     } else {
       console.log(`Wishlist already exists for user: ${userID}`);
     }

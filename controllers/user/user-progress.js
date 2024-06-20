@@ -1,5 +1,8 @@
 import ApiError from "../../middleware/errors/customError.js";
 import UserProgress from "../../models/user/user-progress.js";
+import Certificate from '../../models/course/certificate.js'
+import InporgressCourses from "../../models/user/inporgress-courses.js";
+import Wishlist from "../../models/user/wishlist.js";
 export const createNewUserProgress = async (userID) => {
   const NewUserProgress = new UserProgress({userID});
   try {
@@ -21,8 +24,10 @@ export const getAllUserProgresss = async (req, res, next) => {
 export const getUserProgress = async (req, res, next) => {
   const userID = req.params.userID;
   try {
-    const userProgress = await UserProgress.findOne({ userID }).populate("certificates").populate("coursesInProgress")
-    res.status(200).json(userProgress);
+    const certificates = await Certificate.find({userID});
+    const wishlist = await Wishlist.findOne({userID}).populate("courses");
+    const inProgressCoursess = await InporgressCourses.findOne({userID});
+    res.status(200).json({certificates , wishlist , inProgressCoursess});
   } catch (error) {
     next(error);
   }

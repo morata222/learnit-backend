@@ -4,6 +4,8 @@ import ApiError from "../../middleware/errors/customError.js";
 import User from "../../models/user/user.js";
 import { createNewUserProgress } from "../../controllers/user/user-progress.js";
 import { createWishlist } from "../../controllers/user/wishlist.js";
+import { createInProgressCourse } from "./inprogress-courses.js";
+import UserProgress from "../../models/user/user-progress.js";
 import sendEmail from "../../helpers/sendEmail.js";
 
 import { generateJwtToken } from "../../utils/jwt/jwt.js";
@@ -34,6 +36,7 @@ export const VerifyCode = (req, res, next) => {
         .then(async (user) => {
           await createNewUserProgress(user._id);
           await createWishlist(user._id);
+          await createInProgressCourse(user._id);
           res.status(200).json({
             message: "User verified successfully , please sign in to continue",
             data: { user: user.username, email: user.email },
@@ -78,6 +81,7 @@ export const SignUp = (req, res, next) => {
           .then(async (user) => {
             await createNewUserProgress(user._id);
             await createWishlist(user._id);
+            await createInProgressCourse(user._id);
             res.status(201).json({
               message: "User Created Successfully",
             });
@@ -101,26 +105,16 @@ export const SignIn = async (req, res, next) => {
     if (!user) {
       next(new ApiError("User not found", 404));
     }
-
-    // Check password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       next(new ApiError("Wrong password", 401));
     }
-    // Generate JWT token
-    // const token = generateJwtToken({
-    //   _id: user._id,
-    //   isInstructor: user.isInstructor,
-    //   isVerified: user.isVerified,
-    // });
-
-    // user.lastAccessToken = token;
-    // await user.save();
-    // Send response
+    const userProgress = await UserProgress.findOne({ userID: user._id }).populate("certificates").populate("coursesInProgress").populate("savedCourses")
     res
       .status(200)
       // .cookie("accessToken", token, { httpOnly: true })
-      .json({ message: "Signed in successfully", user: user });
+      .json({ message: "Signed in successfully", user, userProgress});
+      
   } catch (error) {
     next(new ApiError(error.message, 500));
   }

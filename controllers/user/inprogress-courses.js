@@ -2,12 +2,32 @@ import User from "../../models/user/user.js";
 import InProgressCourse from "../../models/user/inporgress-courses.js";
 
 export const createInProgressCourse = async (userID) => {
-  const newInProgressCourse = new InProgressCourse({ userID });
   try {
-    const inProgressCourse = await newInProgressCourse.save();
-    return inProgressCourse;
+    const existingInProgressCourse = await InProgressCourse.findOne({ userID });
+    if (!existingInProgressCourse) {
+      const InProgressCourse = new InProgressCourse({
+        userID,
+        courses: []
+      });
+      await InProgressCourse.save();
+    } else {
+      console.log(`InProgressCourse already exists for user: ${userID}`);
+    }
   } catch (error) {
-    throw(error);
+    console.error(`Error creating InProgressCourse for user ${userID} with data:`, error);
+  }
+};
+export const createInProgressCourseForEachUser = async () => {
+  try {
+    const users = await User.find();
+    for (const user of users) {
+      const existingInProgressCourse = await InProgressCourse.findOne({ userId: user._id });
+      if (!existingInProgressCourse) {
+        await createInProgressCourse(user._id);
+      }
+    }
+  } catch (error) {
+    console.error('Error creating InProgressCourses:', error);
   }
 };
 

@@ -26,6 +26,12 @@ const userProgressSchema = new mongoose.Schema(
         ref: "InProgressCourses",
       },
     ],
+    savedCourses: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Wishlist",
+      },
+    ],
     allTimeRanking: {
       type: Number,
       default: 0,

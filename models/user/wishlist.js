@@ -7,13 +7,8 @@ const wishlistSchema = new mongoose.Schema(
       required: true,
       unique: true,
       ref: "User",
-      
     },
-    courses: {
-      type: [mongoose.Schema.Types.ObjectId],
-      default: [], // Default to an empty array
-      unique: false
-    }
+    courses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
   },
   {
     timestamps: true,
