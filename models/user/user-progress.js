@@ -23,13 +23,13 @@ const userProgressSchema = new mongoose.Schema(
     coursesInProgress: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "InProgressCourses",
+        ref: "Course",
       },
     ],
     savedCourses: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Wishlist",
+        ref: "Course",
       },
     ],
     allTimeRanking: {

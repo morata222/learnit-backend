@@ -98,7 +98,6 @@ export const SignUp = (req, res, next) => {
 
 export const SignIn = async (req, res, next) => {
   const { email, password } = req.body;
-
   try {
     // Find user by email
     const user = await User.findOne({ email });
@@ -109,12 +108,10 @@ export const SignIn = async (req, res, next) => {
     if (!isPasswordValid) {
       next(new ApiError("Wrong password", 401));
     }
-    const userProgress = await UserProgress.findOne({ userID: user._id }).populate("certificates").populate("coursesInProgress").populate("savedCourses")
     res
       .status(200)
       // .cookie("accessToken", token, { httpOnly: true })
-      .json({ message: "Signed in successfully", user, userProgress});
-      
+      .json({ message: "Signed in successfully", user });
   } catch (error) {
     next(new ApiError(error.message, 500));
   }
@@ -144,23 +141,30 @@ export const SignInWithProvider = async (req, res, next) => {
 
         newUser
           .save()
-          .then(async(user) => {
+          .then(async (user) => {
             await createNewUserProgress(user._id);
             await createWishlist(user._id);
-            res.status(201).json({
-              message: "User Signed in Successfully",
-              user: user,
-            });
+            const userProgress = await UserProgress.findOne({
+              userID: user._id,
+            })
+              .populate("certificates")
+              .populate("coursesInProgress")
+              .populate("savedCourses");
+            res
+              .status(200)
+              // .cookie("accessToken", token, { httpOnly: true })
+              .json({ message: "Signed in successfully", user, userProgress });
           })
           .catch((error) => {
             return next(new ApiError(error.message, 500));
           });
       });
     } else {
-      res.status(201).json({
-        message: "User Signed in Successfully",
-        user: user,
-      });
+    
+      res
+        .status(200)
+        // .cookie("accessToken", token, { httpOnly: true })
+        .json({ message: "Signed in successfully", user });
     }
   } catch (error) {
     next(new ApiError(error.message, 500));

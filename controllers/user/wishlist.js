@@ -1,5 +1,7 @@
 import User from "../../models/user/user.js";
 import Wishlist from "../../models/user/wishlist.js";
+import UserProgress from "../../models/user/user-progress.js";
+
 
 export const createWishlist = async (userID) => {
   try {
@@ -52,12 +54,12 @@ export const getWishlist = async (req, res, next) => {
 export const addCourseToWishlist = async (req, res, next) => {
   const {userID , courseID} = req.body;
   try {
-    const wishlist = await Wishlist.findOneAndUpdate(
+    const userProgress = await UserProgress.findOneAndUpdate(
       { userID },
-      { $addToSet: { courses: courseID } }, // Use $addToSet instead of $push
+      { $addToSet: { savedCourses: courseID } },
       { new: true }
     );
-    res.status(200).json(wishlist);
+    res.status(200).json(userProgress);
   } catch (error) {
     next(error);
   }
@@ -66,12 +68,12 @@ export const addCourseToWishlist = async (req, res, next) => {
 export const removeCourseFromWishlist = async (req, res, next) => {
   const {userID , courseID} = req.body;
   try {
-    const wishlist = await Wishlist.findOneAndUpdate(
+    const userProgress = await UserProgress.findOneAndUpdate(
       { userID },
-      { $pull: { courses: courseID } },
+      { $pull: { savedCourses: courseID } },
       { new: true }
     );
-    res.status(200).json(wishlist);
+    res.status(200).json(userProgress);
   } catch (error) {
     next(error);
   }

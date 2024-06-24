@@ -18,6 +18,7 @@ import finalProjectRoute from "./course/final-project.js";
 import postRoute from "./community/post.js";
 import pollRoute from "./community/poll.js";
 import userProgressRoute from "./user/user-progress.js";
+import InProgressCourses from './user/inprogress-courses.js'
 import certificateRoute from "./course/certificate.js";
 import submissionRoute from "./course/submission.js";
 import leaderboardRoute from "./user/leaderboard.js";
@@ -37,6 +38,7 @@ router.use("/course-section", courseSectionRoute);
 router.use("/quiz", quizRoute);
 router.use("/question", questionRoute);
 router.use("/wishlist", wishlistRoute);
+router.use("/in-progress-courses", InProgressCourses);
 router.use("/community", communityRoute);
 router.use("/feedback", feedbackRoute);
 router.use("/final-project", finalProjectRoute);

@@ -7,6 +7,12 @@ const quizSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    solvedBy:[
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      }
+    ],
     lessonID: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,

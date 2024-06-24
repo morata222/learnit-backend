@@ -5,7 +5,7 @@ import {addCourseToInProgressCourse,getInProgressCourse,removeCourseFromInProgre
 const router = express.Router();
 
 router.get('/:userID', getInProgressCourse);
-router.put('/addNewCourseToWishlist',addCourseToInProgressCourse );
-router.put('/removeCourseFromWishlist',removeCourseFromInProgressCourse );
+router.put('/addNewCourseToInProgress',addCourseToInProgressCourse );
+router.put('/removeCourseToInProgress',removeCourseFromInProgressCourse );
 
 export default router;

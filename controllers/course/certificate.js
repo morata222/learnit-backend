@@ -1,11 +1,18 @@
 import ApiError from "../../middleware/errors/customError.js";
 import Certificate from "../../models/course/certificate.js";
+import UserProgress from "../../models/user/user-progress.js";
+
 
 export const createNewCertificate = async (req, res, next) => {
-  const NewCertificate = new Certificate({ ...req.body});
+  const NewCertificate = new Certificate({ ...req.body });
   try {
-    const Certificate = await NewCertificate.save();
-    res.status(201).json({message : "new Certificate created successfully"});
+    const certificate = await NewCertificate.save();
+    const userProgress = await UserProgress.findOneAndUpdate(
+      { userID: req.body.userID },
+      { $push: { certificates: certificate._id } },
+      { new: true }
+    );
+    res.status(201).json({ message: "new Certificate created successfully" , certificate  });
   } catch (error) {
     next(error);
   }
@@ -13,7 +20,7 @@ export const createNewCertificate = async (req, res, next) => {
 
 export const getAllCertificates = async (req, res, next) => {
   try {
-    const Certificates = await Certificate.find()
+    const Certificates = await Certificate.find();
     res.status(200).json(Certificates);
   } catch (error) {
     next(error);
@@ -31,12 +38,15 @@ export const getCertificateById = async (req, res, next) => {
 export const updateCertificate = async (req, res, next) => {
   const { CertificateID } = req.params;
   try {
-    const certificate = await Certificate.findByIdAndUpdate(CertificateID, req.body, {
-      new: true,
-    });
+    const certificate = await Certificate.findByIdAndUpdate(
+      CertificateID,
+      req.body,
+      {
+        new: true,
+      }
+    );
     res.status(200).json(certificate);
-  }
-  catch (error) {
+  } catch (error) {
     next(error);
   }
 };

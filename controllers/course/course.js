@@ -21,28 +21,52 @@ export const createNewCourse = async (req, res, next) => {
 };
 export const getAllCourses = async (req, res, next) => {
   const { search } = req.query;
-  if (search) {
-    try {
-      const courses = await Course.find({
+  const populateQuery = {
+    path: "courseSections",
+    populate: {
+      path: "lessons",
+      populate: {
+        path: "quizID",
+        model: "Quiz",
+        populate: {
+          path: "questions",
+          model: "Question",
+        },
+      },
+    },
+  };
+
+  try {
+    let courses;
+    if (search) {
+      courses = await Course.find({
         courseName: { $regex: search, $options: "i" },
-      }).populate("courseSections");
-      res.status(200).json(courses);
-    } catch (error) {
-      next(error);
+      }).populate(populateQuery);
+    } else {
+      courses = await Course.find().populate(populateQuery);
     }
-  } else {
-    try {
-      const courses = await Course.find().populate("courseSections");
-      res.status(200).json(courses);
-    } catch (error) {
-      next(error);
-    }
+    res.status(200).json(courses);
+  } catch (error) {
+    next(error);
   }
 };
 export const getCourseById = async (req, res, next) => {
   const { courseId } = req.params;
   try {
-    const course = await Course.findById(courseId).populate("courseSections");
+    const course = await Course.findById(courseId).populate({
+      path: "courseSections",
+      populate: {
+        path: "lessons",
+        populate: {
+          path: "quizID",
+          model: "Quiz",
+          populate: {
+            path: "questions",
+            model: "Question",
+          },
+        },
+      },
+    });
     if (!course) return next(new ApiError("Course not found", 404));
     res.status(200).json(course);
   } catch (error) {
