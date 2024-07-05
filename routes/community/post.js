@@ -8,12 +8,14 @@ import {
   getAllPosts,
   getPost,
   updatePost,
+  deleteAllPosts
 } from "../../controllers/community/post.js";
 
 const router = express.Router();
 
 router.post("/create", checkFields, createPost);
 router.get("/all", getAllPosts);
+router.delete("/deleteAll", deleteAllPosts)
 router.get("/:postID", getPost);
 router.put("/:postID", checkFields, updatePost);
 router.delete("/:postID", deletePost);

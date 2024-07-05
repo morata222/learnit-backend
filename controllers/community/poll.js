@@ -64,3 +64,12 @@ export const deletePoll = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteAllPolls = async (req, res, next) => {
+  try {
+    const polls = await Poll.deleteMany();
+    res.status(200).json({ message: "All polls deleted successfully", polls });
+  } catch (error) {
+    next(error);
+  }
+}

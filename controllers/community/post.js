@@ -62,3 +62,13 @@ export const deletePost = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteAllPosts = async (req, res, next) => {
+  try {
+    await Post.deleteMany();
+    res.status(200).json({ message: "All posts deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+}
+
