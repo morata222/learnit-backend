@@ -18,7 +18,7 @@ export const createPoll = async (req, res, next) => {
 
 export const getAllPolls = async (req, res, next) => {
   try {
-    const polls = await Poll.find().sort({ createdAt: -1 })
+    const polls = await Poll.find().sort({ createdAt: -1 }).populate("userID");
     res.status(200).json(polls);
   } catch (error) {
     next(error);

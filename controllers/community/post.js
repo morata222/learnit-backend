@@ -18,7 +18,7 @@ export const createPost = async (req, res, next) => {
 
 export const getAllPosts = async (req, res, next) => {
   try {
-    const posts = await Post.find().sort({ createdAt: -1 }); // Sort posts by createdAt in descending order
+    const posts = await Post.find().sort({ createdAt: -1 }).populate("userID");
     res.status(200).json(posts);
   } catch (error) {
     next(error);
