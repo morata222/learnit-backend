@@ -28,7 +28,7 @@ export const getAllPolls = async (req, res, next) => {
 export const getPoll = async (req, res, next) => {
   const {PollID} = req.params;
   try {
-    const poll = await Poll.findById(PollID).populate("comments");
+    const poll = await Poll.findById(PollID).populate("comments").populate("userID");
     // I want to get poll in reverse order
     
     res.status(200).json(poll);

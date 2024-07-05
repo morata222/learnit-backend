@@ -12,6 +12,11 @@ const postSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    userID:{
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     communityID: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
